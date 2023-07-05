@@ -1,4 +1,12 @@
-export default function Item({ Icon = <></>, title = "" }) {
+import React from "react";
+export default function Item({
+  Icon = (
+    <div>
+      <h1>TESTE</h1>
+    </div>
+  ),
+  title = "",
+}) {
   return (
     <li>
       <a

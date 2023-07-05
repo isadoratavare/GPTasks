@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 
 import About from "./screens/About";
@@ -12,7 +12,7 @@ import Settings from "./screens/Settings";
 import Boards from "./screens/Boards";
 
 function App() {
-  const [isAuth, setIsAuth] = React.useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   return (
     <BrowserRouter>

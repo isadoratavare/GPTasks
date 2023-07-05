@@ -11,7 +11,7 @@ const SideBar = () => {
   };
 
   return (
-    <>
+    <div>
       {isOpen && (
         <aside
           id="logo-sidebar"
@@ -98,7 +98,7 @@ const SideBar = () => {
           </div>
         </aside>
       )}
-    </>
+    </div>
   );
 };
 
