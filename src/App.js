@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import About from "./screens/About";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
+
 import SignUp from "./screens/SignUp";
 import CreateBoard from "./screens/CreateBoard";
 import NotFound from "./screens/NotFound";
@@ -77,18 +78,7 @@ function App() {
             )
           }
         />
-        <Route
-          path="/sign-up"
-          element={
-            isAuth ? (
-              <Container>
-                <SignUp />
-              </Container>
-            ) : (
-              <Navigate replace to="/login" />
-            )
-          }
-        />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route element={NotFound} />
       </Routes>

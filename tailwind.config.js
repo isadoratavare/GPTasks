@@ -4,7 +4,32 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
-      gray: "#F3F3F3",
+      lightGray: "#F4FAFF",
+      gray: "#ADADAD",
+      "gray-200": "#E9EDF4",
+      "gray-500": "#a0aec0",
+      white: {
+        100: "#FFFFFF",
+      },
+      slate: {
+        100: "#F7FAFC",
+        200: "#E2E8F0",
+        300: "#CBD5E0",
+        400: "#A0AEC0",
+        500: "#718096",
+        600: "#4A5568",
+        700: "#2D3748",
+      },
+      blue: {
+        100: "#dbeafe",
+        200: "#bfdbfe",
+        300: "#93c5fd",
+        400: "#60a5fa",
+        500: "#3b82f6",
+        600: "#2563eb",
+        700: "#1d4ed8",
+        800: "#1e40af",
+      },
     },
   },
   plugins: [],
