@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 
 import About from "./screens/About";
@@ -14,6 +14,13 @@ import Boards from "./screens/Boards";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuth(true);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -78,8 +85,14 @@ function App() {
             )
           }
         />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/register"
+          element={!isAuth ? <SignUp /> : <Navigate replace to="/" />}
+        />
+        <Route
+          path="/login"
+          element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+        />
         <Route element={NotFound} />
       </Routes>
     </BrowserRouter>

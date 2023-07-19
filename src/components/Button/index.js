@@ -1,4 +1,4 @@
-export default function Button({ title }) {
+export default function Button({ title, onPress }) {
   return (
     <button
       type="submit"
@@ -15,6 +15,7 @@ export default function Button({ title }) {
                   py-2.5 
                   text-center
                   "
+      onClick={onPress}
     >
       {title}
     </button>

@@ -6,9 +6,10 @@ export default function Item({
     </div>
   ),
   title = "",
+  onClick = () => {},
 }) {
   return (
-    <li>
+    <li onClick={onClick}>
       <a
         href="#"
         className="flex 

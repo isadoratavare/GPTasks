@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -15,3 +16,20 @@
   text-decoration: none;
   list-style: none;
 }
+/* 
+h1 {
+  font-size: 96px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+h2 {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+}
+
+h3 {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+} */

@@ -1,4 +1,4 @@
-export default function Input({ type, name, id, placeholder }) {
+export default function Input({ type, name, id, placeholder, onChange }) {
   return (
     <input
       type={type}
@@ -14,8 +14,11 @@ export default function Input({ type, name, id, placeholder }) {
                     focus:border-primary-600 
                     block
                     w-full 
-                    p-2.5 "
+                    p-2.5 
+                    
+                    "
       required=""
+      onChange={onChange}
     />
   );
 }

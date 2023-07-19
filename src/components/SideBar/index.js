@@ -26,7 +26,7 @@ const SideBar = () => {
             sm:translate-x-0"
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 bg-gray">
+          <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 bg-gray-200">
             <Link to="/">
               <img
                 className="h-auto max-w-xs rounded-sm"
@@ -93,6 +93,10 @@ const SideBar = () => {
                     className="w-6 h-6"
                   />
                 )}
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  window.location.reload();
+                }}
               />
             </ul>
           </div>
