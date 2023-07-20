@@ -1,6 +1,9 @@
 import React from "react";
 import { H3Class, subtitle } from "../../styles/headers";
 import CardTask from "../../components/CardTask";
+import ProductivityChart from "../../components/ProductivityChart";
+
+import { tasks, tasksCompleted } from "../../data/mocks/tasks";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -50,25 +53,37 @@ const Home = () => {
           {onGoingOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                <CardTask colorTag="bg-blue-700" />
-                <CardTask colorTag="bg-orange-500" />
+                {tasks.map((task) => (
+                  <CardTask
+                    colorTag={task.colorTag}
+                    name={task.name}
+                    description={task.description}
+                    projectName={task.projectName}
+                  />
+                ))}
               </div>
             </div>
           )}
           {completedOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                <CardTask colorTag="bg-blue-700" />
-                <CardTask colorTag="bg-orange-500" />
-                <CardTask colorTag="bg-orange-500" />
-                <CardTask colorTag="bg-blue-700" />
-                <CardTask colorTag="bg-blue-700" />
+                {tasksCompleted.map((task) => (
+                  <CardTask
+                    colorTag={task.colorTag}
+                    name={task.name}
+                    description={task.description}
+                    projectName={task.projectName}
+                  />
+                ))}
               </div>
             </div>
           )}
         </div>
         <div className="p-5">
           <h3 className="text-2xl font-extrabold">Productivity</h3>
+          <div className="flex justify-center">
+            <ProductivityChart />
+          </div>
         </div>
       </div>
     </div>
