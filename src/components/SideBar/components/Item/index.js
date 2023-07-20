@@ -1,6 +1,15 @@
-export default function Item({ Icon = <></>, title = "" }) {
+import React from "react";
+export default function Item({
+  Icon = (
+    <div>
+      <h1>TESTE</h1>
+    </div>
+  ),
+  title = "",
+  onClick = () => {},
+}) {
   return (
-    <li>
+    <li onClick={onClick}>
       <a
         href="#"
         className="flex 

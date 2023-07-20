@@ -1,9 +1,10 @@
-import React from "react";
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 
 import About from "./screens/About";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
+
 import SignUp from "./screens/SignUp";
 import CreateBoard from "./screens/CreateBoard";
 import NotFound from "./screens/NotFound";
@@ -12,20 +13,88 @@ import Settings from "./screens/Settings";
 import Boards from "./screens/Boards";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuth(true);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
-      <Container>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/create-board" element={<CreateBoard />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/boards" element={<Boards />} />
-          <Route element={NotFound} />
-        </Routes>
-      </Container>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isAuth ? (
+              <Container>
+                <Home />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            isAuth ? (
+              <Container>
+                <About />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            isAuth ? (
+              <Container>
+                <Settings />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/boards"
+          element={
+            isAuth ? (
+              <Container>
+                <Boards />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/create-board"
+          element={
+            isAuth ? (
+              <Container>
+                <CreateBoard />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={!isAuth ? <SignUp /> : <Navigate replace to="/" />}
+        />
+        <Route
+          path="/login"
+          element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+        />
+        <Route element={NotFound} />
+      </Routes>
     </BrowserRouter>
   );
 }

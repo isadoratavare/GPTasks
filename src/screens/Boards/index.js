@@ -1,3 +1,4 @@
+import React from "react";
 export default function Boards() {
   return (
     <div className="p-4 sm:ml-64">
