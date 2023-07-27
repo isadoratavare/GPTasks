@@ -4,6 +4,10 @@ import CardTask from "../../components/CardTask";
 import ProductivityChart from "../../components/ProductivityChart";
 
 import { tasks, tasksCompleted } from "../../data/mocks/tasks";
+import Button from "../../components/Button/index";
+
+import { projectsDoneTasks } from "../../data/mocks/tasks";
+import Board from "../../components/Board/index";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -22,13 +26,29 @@ const Home = () => {
     "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500";
   const inactiveStyle =
     "inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300";
+
   return (
     <div className="py-7 sm:ml-64 px-8">
-      <div className="pb-5">
-        <h3 className={H3Class}>Hello Alice!</h3>
-        <h4 className={subtitle}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit!
-        </h4>
+      <div className="flex justify-between items-center">
+        <div className="pb-5">
+          <h3 className={H3Class}>Hello Alice!</h3>
+          <h4 className={subtitle}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit!
+          </h4>
+        </div>
+        <div className="px-2">
+          <Button
+            title="Criar quadro"
+            onPress={() => {}}
+            IconRight={() => (
+              <img
+                src={require("../../assets/images/plus.svg").default}
+                alt="Add"
+                className="w-6 h-6 fill-white"
+              />
+            )}
+          />
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -79,10 +99,26 @@ const Home = () => {
             </div>
           )}
         </div>
-        <div className="p-5">
-          <h3 className="text-2xl font-extrabold">Productivity</h3>
-          <div className="flex justify-center">
-            <ProductivityChart />
+        <div className="">
+          <div className="p-5">
+            <h3 className="text-2xl font-extrabold">Productivity</h3>
+            <div className="flex justify-center">
+              <ProductivityChart />
+            </div>
+          </div>
+
+          <div className="p-5">
+            <h3 className="text-2xl font-extrabold">Boards</h3>
+            <div className="flex justify-center">
+              {projectsDoneTasks.map((board) => (
+                <Board
+                  name={board.name}
+                  color={board.colorTag}
+                  tasks={board.tasksTotal}
+                  tasksCompleted={board.tasksCompleted}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
