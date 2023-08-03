@@ -1,0 +1,41 @@
+
+/* Use flexbox to stack input containers vertically */
+.flex-column {
+  display: flex;
+  padding: 6px 12px;
+
+  flex-direction: column;
+}
+
+/* Apply styles to the input container */
+.input-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+/* Style for the duration input */
+#duration {
+  width: 150px; /* Adjust the width as needed */
+}
+
+/* Style for the durationUnit select */
+#durationUnit {
+  width: 150px; /* Adjust the width as needed */
+  /* Add additional styles to make the select look like an input */
+  appearance: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+}
+
+/* Style for the participants input */
+#participants {
+  width: 150px; /* Adjust the width as needed */
+}
+
+label {
+  margin-bottom: 5px; /* Add margin at the top of the label elements */
+}
