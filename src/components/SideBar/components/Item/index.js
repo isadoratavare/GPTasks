@@ -10,7 +10,7 @@ export default function Item({
 }) {
   return (
     <li onClick={onClick}>
-      <a
+      <span
         href="#"
         className="flex 
           items-center 
@@ -23,7 +23,7 @@ export default function Item({
       >
         <Icon />
         <span className="ml-3">{title}</span>
-      </a>
+      </span>
     </li>
   );
 }

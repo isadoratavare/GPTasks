@@ -48,6 +48,7 @@ export const tasksCompleted = [
 
 export const projectsDoneTasks = [
   {
+    id: 1,
     colorTag: "bg-blue-700",
     color: "#4D7AE9",
     name: "Estudos",
@@ -55,6 +56,7 @@ export const projectsDoneTasks = [
     tasksTotal: 20,
   },
   {
+    id: 2,
     colorTag: "bg-orange-500",
     color: "#FF8A00",
     name: "Faculdade",
@@ -62,10 +64,19 @@ export const projectsDoneTasks = [
     tasksTotal: 20,
   },
   {
-    colorTag: "bg-blue-700",
+    id: 3,
+    colorTag: "bg-pink-500",
     color: "#FF007A",
     name: "Academia",
     tasksCompleted: 2,
+    tasksTotal: 20,
+  },
+  {
+    id: 4,
+    colorTag: "bg-emerald-500",
+    color: "#34d399",
+    name: "Trabalho",
+    tasksCompleted: 8,
     tasksTotal: 20,
   },
 ];

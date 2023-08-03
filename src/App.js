@@ -11,12 +11,13 @@ import NotFound from "./screens/NotFound";
 import Container from "./components/Container";
 import Settings from "./screens/Settings";
 import Boards from "./screens/Boards";
+import Board from "./screens/Board";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (token) {
       setIsAuth(true);
     }
@@ -79,6 +80,18 @@ function App() {
             isAuth ? (
               <Container>
                 <CreateBoard />
+              </Container>
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/board/:id"
+          element={
+            isAuth ? (
+              <Container>
+                <Board />
               </Container>
             ) : (
               <Navigate replace to="/login" />

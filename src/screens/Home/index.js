@@ -7,7 +7,8 @@ import { tasks, tasksCompleted } from "../../data/mocks/tasks";
 import Button from "../../components/Button/index";
 
 import { projectsDoneTasks } from "../../data/mocks/tasks";
-import Board from "../../components/Board/index";
+import Board from "../../components/BoardCard/index";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -37,17 +38,19 @@ const Home = () => {
           </h4>
         </div>
         <div className="px-2">
-          <Button
-            title="Criar quadro"
-            onPress={() => {}}
-            IconRight={() => (
-              <img
-                src={require("../../assets/images/plus.svg").default}
-                alt="Add"
-                className="w-6 h-6 fill-white"
-              />
-            )}
-          />
+          <Link to="/create-board">
+            <Button
+              title="Criar quadro"
+              onPress={() => {}}
+              IconRight={() => (
+                <img
+                  src={require("../../assets/images/plus.svg").default}
+                  alt="Add"
+                  className="w-6 h-6 fill-white"
+                />
+              )}
+            />
+          </Link>
         </div>
       </div>
 
@@ -55,17 +58,17 @@ const Home = () => {
         <div className="bg-blue-100 p-5 rounded-2xl">
           <h3 className="text-2xl font-extrabold">My Tasks</h3>
 
-          <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
-            <ul class="flex flex-wrap -mb-px">
+          <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 ">
+            <ul className="flex flex-wrap -mb-px">
               <li onClick={openOnGoing} className="cursor-pointer">
-                <a class={onGoingOpen ? activeStyle : inactiveStyle}>
+                <span className={onGoingOpen ? activeStyle : inactiveStyle}>
                   On Going
-                </a>
+                </span>
               </li>
               <li onClick={openFinished} className="cursor-pointer">
-                <a class={completedOpen ? activeStyle : inactiveStyle}>
+                <span className={completedOpen ? activeStyle : inactiveStyle}>
                   Finished
-                </a>
+                </span>
               </li>
             </ul>
           </div>
@@ -73,8 +76,9 @@ const Home = () => {
           {onGoingOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {tasks.map((task) => (
+                {tasks.map((task, i) => (
                   <CardTask
+                    key={i}
                     colorTag={task.colorTag}
                     name={task.name}
                     description={task.description}
@@ -87,8 +91,9 @@ const Home = () => {
           {completedOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {tasksCompleted.map((task) => (
+                {tasksCompleted.map((task, i) => (
                   <CardTask
+                    key={i}
                     colorTag={task.colorTag}
                     name={task.name}
                     description={task.description}
@@ -109,9 +114,11 @@ const Home = () => {
 
           <div className="p-5">
             <h3 className="text-2xl font-extrabold">Boards</h3>
-            <div className="flex justify-center">
-              {projectsDoneTasks.map((board) => (
+            <div className="grid md:grid-cols-2 justify-center">
+              {projectsDoneTasks.map((board, i) => (
                 <Board
+                  key={i}
+                  id={board.id}
                   name={board.name}
                   color={board.colorTag}
                   tasks={board.tasksTotal}
