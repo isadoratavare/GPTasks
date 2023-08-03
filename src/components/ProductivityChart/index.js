@@ -19,7 +19,7 @@ export const colors = projectsDoneTasks.map((project) => {
 
 export default function ProductivityChart() {
   return (
-    <div className="flex flex-col h-1/2">
+    <div className="flex flex-col h-64">
       <VictoryPie
         data={data}
         colorScale={colors}
@@ -31,11 +31,11 @@ export default function ProductivityChart() {
             display: "none",
           },
         }}
-        height={300}
+        height={250}
       />
       <VictoryLegend
         x={125}
-        y={10}
+        y={1}
         orientation="horizontal"
         colorScale={["#4D7AE9", "#FF8A00", "#FF007A"]}
         data={labels}
