@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 
 import About from "./screens/About";
@@ -12,17 +12,15 @@ import Container from "./components/Container";
 import Settings from "./screens/Settings";
 import Boards from "./screens/Boards";
 import Board from "./screens/Board";
+import { useUser } from "./context/useUser";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
-
-  const token = localStorage.getItem("token");
+  const { isAuth, setIsAuth } = useUser();
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("token")) {
       setIsAuth(true);
     }
-  }, []);
-
+  });
   return (
     <BrowserRouter>
       <Routes>

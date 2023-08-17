@@ -2,7 +2,7 @@ export default function Button({ title, onPress, IconRight }) {
   return (
     <button
       type="submit"
-      className="w-full 
+      className="
                   text-white-100 
                   bg-blue-700
                   hover:bg-blue-800 
@@ -19,7 +19,7 @@ export default function Button({ title, onPress, IconRight }) {
                   "
       onClick={onPress}
     >
-      <IconRight />
+      {IconRight && <IconRight />}
       {title}
     </button>
   );

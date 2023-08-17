@@ -6,13 +6,22 @@ import ProductivityChart from "../../components/ProductivityChart";
 import { tasks, tasksCompleted } from "../../data/mocks/tasks";
 import Button from "../../components/Button/index";
 
-import { projectsDoneTasks } from "../../data/mocks/tasks";
 import Board from "../../components/BoardCard/index";
 import { Link } from "react-router-dom";
+
+import { useQuery } from "@apollo/client";
+import { GET_BOARDS } from "../../data/queries/board";
+import { useUser } from "../../context/useUser";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
   const [completedOpen, setCompletedOpen] = React.useState(false);
+
+  const { emailUser } = useUser();
+
+  const { data } = useQuery(GET_BOARDS, {
+    variables: { owner: emailUser || localStorage.getItem("email") },
+  });
 
   function openOnGoing() {
     setOnGoingOpen(true);
@@ -32,7 +41,7 @@ const Home = () => {
     <div className="py-7 sm:ml-64 px-8">
       <div className="flex justify-between items-center">
         <div className="pb-5">
-          <h3 className={H3Class}>Hello Alice!</h3>
+          <h3 className={H3Class}>Welcome!</h3>
           <h4 className={subtitle}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit!
           </h4>
@@ -40,7 +49,7 @@ const Home = () => {
         <div className="px-2">
           <Link to="/create-board">
             <Button
-              title="Criar quadro"
+              title="Create Board"
               onPress={() => {}}
               IconRight={() => (
                 <img
@@ -115,15 +124,8 @@ const Home = () => {
           <div className="p-5">
             <h3 className="text-2xl font-extrabold">Boards</h3>
             <div className="grid md:grid-cols-2 justify-center">
-              {projectsDoneTasks.map((board, i) => (
-                <Board
-                  key={i}
-                  id={board.id}
-                  name={board.name}
-                  color={board.colorTag}
-                  tasks={board.tasksTotal}
-                  tasksCompleted={board.tasksCompleted}
-                />
+              {data?.getAllBoardsFromUser.map((board, i) => (
+                <Board key={i} item={board} />
               ))}
             </div>
           </div>

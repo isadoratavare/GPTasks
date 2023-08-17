@@ -1,6 +1,6 @@
 export default function CardTask({ colorTag, name, projectName, description }) {
   return (
-    <div className="p-3 m-1 rounded-2xl bg-white-100 ">
+    <div className="p-3 m-1 rounded-2xl bg-white-100 w-52">
       <div
         className={`${colorTag} text-white rounded-xl px-2  inline-block my-1`}
       >

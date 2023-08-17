@@ -95,6 +95,7 @@ const SideBar = () => {
                 )}
                 onClick={() => {
                   localStorage.removeItem("token");
+
                   window.location.reload();
                 }}
               />

@@ -1,22 +1,19 @@
 import React from "react";
 import "./style.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import LoginContainer from "../../components/LoginContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-
-import { useMutation } from "@apollo/client";
-import { LOGIN } from "../../data/mutation/auth";
+import { useUser } from "../../context/useUser";
 
 export default function Login() {
-  const navigate = useNavigate();
   const [loginData, setLoginData] = React.useState({
     email: "",
     password: "",
   });
 
-  const [loginFunction] = useMutation(LOGIN);
+  const { handleLogin } = useUser();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,25 +22,11 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    loginFunction({
-      variables: {
-        input: {
-          email: loginData.email,
-          password: loginData.password,
-        },
-      },
-    })
-      .then((token) => {
-        localStorage.setItem("token", token.data.login.access_token);
-        window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        navigate("/");
-      });
+    if (loginData.email == "" || loginData.password == "") {
+      alert("Preencha todos os campos");
+      return;
+    }
+    handleLogin(loginData.email, loginData.password);
   };
   return (
     <div id="main-login" className="min-h-full">
@@ -68,7 +51,9 @@ export default function Login() {
             />
           </div>
 
-          <Button title="Login" onPress={handleSubmit} />
+          <div className="w-5">
+            <Button title="Login" onPress={handleSubmit} />
+          </div>
 
           <div className="flex flex-row justify-center items-center">
             <p className="text-gray-500 px-1 text-sm">Not a member yet? </p>

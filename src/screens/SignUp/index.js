@@ -4,13 +4,13 @@ import "./style.css";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { useMutation } from "@apollo/client";
-import { REGISTER } from "../../data/mutation/auth";
+import { useUser } from "../../context/useUser";
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  const { handleSignIn } = useUser();
+
   const [registerData, setRegisterData] = React.useState({
     name: "",
     lastname: "",
@@ -19,35 +19,48 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
-  const [registerFunction] = useMutation(REGISTER, {
-    variables: {
-      input: {
-        preferredName: registerData.name + " " + registerData.lastname,
-        email: registerData.email,
-        password: registerData.password,
-      },
-    },
-  });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setRegisterData({ ...registerData, [name]: value });
   };
 
   const handleSubmit = (e) => {
-    registerFunction()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    e.preventDefault();
+    if (registerData.name == "") {
+      alert("Name is required");
+      return;
+    }
+    if (registerData.lastname == "") {
+      alert("Last name is required");
+      return;
+    }
+    if (registerData.email == "") {
+      alert("Email is required");
+      return;
+    }
+    if (registerData.password == "") {
+      console.log(registerData.password);
+      alert("Password is required");
+      return;
+    }
+    if (registerData.confirmPassword == "") {
+      alert("Confirm password is required");
+      return;
+    }
+
+    handleSignIn(
+      registerData.name,
+      registerData.lastname,
+      registerData.email,
+      registerData.password
+    );
   };
 
   return (
     <div id="main-register" className="min-h-full">
       <LoginContainer>
-        <form className="space-y-4 md:space-y-6 bg-white-100" action="#">
+        <form className="space-y-4 md:space-y-6 bg-white-100">
           <div className="flex flex-row ">
             <Input
               type="text"
@@ -65,22 +78,28 @@ export default function SignUp() {
             />
           </div>
 
-          <Input type="email" name="email" id="email" placeholder="Email" />
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            onChange={handleChange}
+          />
           <Input
             type="password"
-            name="password-register"
-            id="password-register"
+            name="password"
+            id="password"
             placeholder="Password"
             onChange={handleChange}
           />
           <Input
             type="password"
-            name="confirm-password-register"
-            id="confirm-password-register"
+            name="confirmPassword"
+            id="confirmPassword"
             placeholder="Confirm your password"
             onChange={handleChange}
           />
-          <Button title="Sign up" onClick={handleSubmit} />
+          <Button title="Sign up" onPress={handleSubmit} />
 
           <div className="flex flex-row justify-center items-center">
             <p className="text-gray-500 px-1 text-sm">Already have account? </p>
