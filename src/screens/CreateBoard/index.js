@@ -4,7 +4,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { CREATE_BOARD } from "../../data/mutation/board";
 import { useMutation } from "@apollo/client";
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 import Loading from "../../components/Loading";
 import { GET_BOARDS } from "../../data/queries/board";
 import { useNavigate } from "react-router-dom";

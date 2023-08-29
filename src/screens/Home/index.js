@@ -1,9 +1,7 @@
 import React from "react";
 import { H3Class, subtitle } from "../../styles/headers";
-import CardTask from "../../components/CardTask";
 import ProductivityChart from "../../components/ProductivityChart";
 
-import { tasks, tasksCompleted } from "../../data/mocks/tasks";
 import Button from "../../components/Button/index";
 
 import Board from "../../components/BoardCard/index";
@@ -11,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -85,7 +83,7 @@ const Home = () => {
           {onGoingOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {tasks.map((task, i) => (
+                {/* {tasks.map((task, i) => (
                   <CardTask
                     key={i}
                     colorTag={task.colorTag}
@@ -93,14 +91,14 @@ const Home = () => {
                     description={task.description}
                     projectName={task.projectName}
                   />
-                ))}
+                ))} */}
               </div>
             </div>
           )}
           {completedOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {tasksCompleted.map((task, i) => (
+                {/* {tasksCompleted.map((task, i) => (
                   <CardTask
                     key={i}
                     colorTag={task.colorTag}
@@ -108,7 +106,7 @@ const Home = () => {
                     description={task.description}
                     projectName={task.projectName}
                   />
-                ))}
+                ))} */}
               </div>
             </div>
           )}

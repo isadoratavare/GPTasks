@@ -4,7 +4,7 @@ import { H3Class } from "../../styles/headers";
 import Board from "../../components/BoardCard";
 import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 import Loading from "../../components/Loading/index";
 
 export default function Boards() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginContainer from "../../components/LoginContainer";
 import "./style.css";
 
@@ -6,7 +6,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 
 export default function SignUp() {
   const { handleSignIn } = useUser();
@@ -19,34 +19,98 @@ export default function SignUp() {
     confirmPassword: "",
   });
 
+  const [errorInput, setErrorInput] = React.useState({
+    name: false,
+    nameErrorMessage: "",
+    lastname: false,
+    lastnameErrorMessage: "",
+    email: false,
+    emailErrorMessage: "",
+    password: false,
+    passwordErrorMessage: "",
+    confirmPassword: false,
+    confirmPasswordErrorMessage: "",
+  });
+
+  useEffect(() => {
+    if (registerData.name != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        name: false,
+        nameErrorMessage: "",
+      }));
+    }
+    if (registerData.lastname != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        lastname: false,
+        lastnameErrorMessage: "",
+      }));
+    }
+    if (registerData.email != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        email: false,
+        emailErrorMessage: "",
+      }));
+    }
+    if (registerData.password != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        password: false,
+        passwordErrorMessage: "",
+      }));
+    }
+    if (registerData.confirmPassword != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        confirmPassword: false,
+        confirmPasswordErrorMessage: "",
+      }));
+    }
+  }, [registerData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setRegisterData({ ...registerData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (registerData.name == "") {
-      alert("Name is required");
-      return;
+      setErrorInput((prevState) => ({
+        ...prevState,
+        name: true,
+        nameErrorMessage: "Name is required",
+      }));
     }
     if (registerData.lastname == "") {
-      alert("Last name is required");
-      return;
+      setErrorInput((prevState) => ({
+        ...prevState,
+        lastname: true,
+        lastnameErrorMessage: "Lastname is required",
+      }));
     }
     if (registerData.email == "") {
-      alert("Email is required");
-      return;
+      setErrorInput((prevState) => ({
+        ...prevState,
+        email: true,
+        emailErrorMessage: "Email is required",
+      }));
     }
     if (registerData.password == "") {
-      console.log(registerData.password);
-      alert("Password is required");
-      return;
+      setErrorInput((prevState) => ({
+        ...prevState,
+        password: true,
+        passwordErrorMessage: "Password is required",
+      }));
     }
     if (registerData.confirmPassword == "") {
-      alert("Confirm password is required");
-      return;
+      setErrorInput((prevState) => ({
+        ...prevState,
+        confirmPassword: true,
+        confirmPasswordErrorMessage: "Confirm password is required",
+      }));
     }
 
     handleSignIn(
@@ -61,44 +125,64 @@ export default function SignUp() {
     <div id="main-register" className="min-h-full">
       <LoginContainer>
         <form className="space-y-4 md:space-y-6 bg-white-100">
-          <div className="flex flex-row ">
-            <Input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="First Name"
-              onChange={handleChange}
-            />
-            <Input
-              type="lastname"
-              name="lastname"
-              id="lastname"
-              placeholder="Last Name"
-              onChange={handleChange}
-            />
+          <div className="md:flex md:flex-row justify-between ">
+            <div>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="First Name"
+                onChange={handleChange}
+                error={errorInput.name}
+                errorMessage={errorInput.nameErrorMessage}
+              />
+            </div>
+            <div>
+              <Input
+                type="lastname"
+                name="lastname"
+                id="lastname"
+                placeholder="Last Name"
+                onChange={handleChange}
+                error={errorInput.lastname}
+                errorMessage={errorInput.lastnameErrorMessage}
+              />
+            </div>
           </div>
 
-          <Input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm your password"
-            onChange={handleChange}
-          />
+          <div>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              onChange={handleChange}
+              error={errorInput.email}
+              errorMessage={errorInput.emailErrorMessage}
+            />
+          </div>
+          <div>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              onChange={handleChange}
+              error={errorInput.password}
+              errorMessage={errorInput.passwordErrorMessage}
+            />
+          </div>
+          <div>
+            <Input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm your password"
+              onChange={handleChange}
+              error={errorInput.confirmPassword}
+              errorMessage={errorInput.confirmPasswordErrorMessage}
+            />
+          </div>
           <Button title="Sign up" onPress={handleSubmit} />
 
           <div className="flex flex-row justify-center items-center">

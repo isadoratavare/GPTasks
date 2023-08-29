@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import { Link } from "react-router-dom";
 
 import LoginContainer from "../../components/LoginContainer";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 
 export default function Login() {
   const [loginData, setLoginData] = React.useState({
     email: "",
     password: "",
   });
+  const [errorInput, setErrorInput] = React.useState({
+    email: false,
+    emailErrorMessage: "",
+    password: false,
+    passwordErrorMessage: "",
+  });
 
   const { handleLogin } = useUser();
+
+  useEffect(() => {
+    if (loginData.email != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        email: false,
+        emailErrorMessage: "",
+      }));
+    }
+    if (loginData.password != "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        password: false,
+        passwordErrorMessage: "",
+      }));
+    }
+  }, [loginData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,12 +45,36 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (loginData.email == "" || loginData.password == "") {
-      alert("Preencha todos os campos");
+    if (loginData.email == "" && loginData.password == "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        email: true,
+        emailErrorMessage: "Email is required",
+        password: true,
+        passwordErrorMessage: "Password is required",
+      }));
       return;
     }
+    if (loginData.email == "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        email: true,
+        emailErrorMessage: "Email is required",
+      }));
+      return;
+    }
+    if (loginData.password == "") {
+      setErrorInput((prevState) => ({
+        ...prevState,
+        password: true,
+        passwordErrorMessage: "Password is required",
+      }));
+      return;
+    }
+
     handleLogin(loginData.email, loginData.password);
   };
+
   return (
     <div id="main-login" className="min-h-full">
       <LoginContainer>
@@ -39,6 +86,8 @@ export default function Login() {
               id="email"
               placeholder="Email"
               onChange={handleChange}
+              error={errorInput.email}
+              errorMessage={errorInput.emailErrorMessage}
             />
           </div>
           <div>
@@ -48,6 +97,8 @@ export default function Login() {
               id="password"
               placeholder="Password"
               onChange={handleChange}
+              error={errorInput.password}
+              errorMessage={errorInput.passwordErrorMessage}
             />
           </div>
 

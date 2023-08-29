@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
         setIsAuth(true);
       })
       .catch((err) => {
-        alert("Error on login");
+        alert(err);
       });
   };
   const handleSignIn = (name, lastname, email, password) => {

@@ -12,7 +12,7 @@ import Container from "./components/Container";
 import Settings from "./screens/Settings";
 import Boards from "./screens/Boards";
 import Board from "./screens/Board";
-import { useUser } from "./context/useUser";
+import { useUser } from "./hooks/useUser";
 
 function App() {
   const { isAuth, setIsAuth } = useUser();

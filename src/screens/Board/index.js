@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { H3Class, subtitle } from "../../styles/headers";
 import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
-import { useUser } from "../../context/useUser";
+import { useUser } from "../../hooks/useUser";
 
 const statusTitle =
   "text-white-100 bg-blue-500 py-1 px-5 rounded-2xl opacity- capitalize";
@@ -47,7 +47,7 @@ export default function Board() {
       <div className="bg-board-gray my-4 rounded-2xl p-5">
         <div className="flex">
           {tasksByStatus.map((item) => (
-            <div className="my-4 grid-cols-4 items-stretch w-full ">
+            <div className="my-4 grid-cols-4 items-stretch w-full bg-pink-200">
               <span className={statusTitle}>{item?.status}</span>
 
               <div>
