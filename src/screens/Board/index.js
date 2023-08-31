@@ -17,11 +17,6 @@ export default function Board() {
   const { emailUser, token } = useUser();
 
   const { loading, data, refetch } = useQuery(GET_BOARDS, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
     variables: { owner: emailUser || localStorage.getItem("email") },
   });
 

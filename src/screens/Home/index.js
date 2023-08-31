@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
 import { useUser } from "../../hooks/useUser";
+import OnGoingTasks from "./OnGoingTasks";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -88,15 +89,7 @@ const Home = () => {
           {onGoingOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {/* {tasks.map((task, i) => (
-                  <CardTask
-                    key={i}
-                    colorTag={task.colorTag}
-                    name={task.name}
-                    description={task.description}
-                    projectName={task.projectName}
-                  />
-                ))} */}
+                <OnGoingTasks />
               </div>
             </div>
           )}
