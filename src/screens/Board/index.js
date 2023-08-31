@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
 import { useUser } from "../../hooks/useUser";
 import KanbanBoard from "./components/KanbanBoard";
+import ModalTask from "../../components/ModalTask";
 
 const statusTitle =
   "text-white-100 bg-blue-500 py-1 px-5 rounded-2xl opacity- capitalize";
@@ -26,6 +27,7 @@ export default function Board() {
 
   return (
     <div className="p-4 sm:ml-64">
+      <ModalTask />
       <KanbanBoard boardId={id} data={boardById[0]} refetch={refetch} />
     </div>
   );

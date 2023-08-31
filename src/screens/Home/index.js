@@ -12,6 +12,7 @@ import { GET_BOARDS } from "../../data/queries/board";
 import { useUser } from "../../hooks/useUser";
 import OnGoingTasks from "./OnGoingTasks";
 import FinishedTasks from "./FinishedTasks";
+import ModalTask from "../../components/ModalTask";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -44,6 +45,7 @@ const Home = () => {
 
   return (
     <div className="py-7 sm:ml-64 px-8">
+      <ModalTask />
       <div className="flex justify-between items-center">
         <div className="pb-5">
           <h3 className={H3Class}>Welcome!</h3>

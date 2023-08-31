@@ -1,8 +1,10 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useTask } from "../../../hooks/useTask";
 
 function TaskCard({ task, updateTask }) {
+  const { setIsModalTaskOpen, setTask } = useTask();
   const {
     setNodeRef,
     attributes,
@@ -40,6 +42,10 @@ function TaskCard({ task, updateTask }) {
     <div
       ref={setNodeRef}
       style={style}
+      onClick={() => {
+        setIsModalTaskOpen(true);
+        setTask(task);
+      }}
       {...attributes}
       {...listeners}
       className="bg-white-100 

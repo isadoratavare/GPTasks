@@ -5,17 +5,6 @@ import { useUser } from "../../hooks/useUser";
 import CardTask from "../../components/CardTask/index";
 
 export default function OnGoingTasks() {
-  {
-    /* {tasks.map((task, i) => (
-                  <CardTask
-                    key={i}
-                    colorTag={task.colorTag}
-                    name={task.name}
-                    description={task.description}
-                    projectName={task.projectName}
-                  />
-                ))} */
-  }
   const { emailUser, token } = useUser();
   const { loading, data, refetch, error } = useQuery(GET_BOARDS, {
     context: {
@@ -46,6 +35,7 @@ export default function OnGoingTasks() {
           name={task.title}
           description={task.description}
           projectName={task.projectName}
+          task={task}
         />
       ))}
     </>

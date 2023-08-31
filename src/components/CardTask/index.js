@@ -1,6 +1,21 @@
-export default function CardTask({ colorTag, name, projectName, description }) {
+import { useTask } from "../../hooks/useTask";
+
+export default function CardTask({
+  colorTag,
+  name,
+  projectName,
+  description,
+  task,
+}) {
+  const { setIsModalTaskOpen, setTask } = useTask();
   return (
-    <div className="p-3 m-1 rounded-2xl bg-white-100 w-52">
+    <div
+      className="p-3 m-1 rounded-2xl bg-white-100 w-52"
+      onClick={() => {
+        setIsModalTaskOpen((prevState) => !prevState);
+        setTask(task);
+      }}
+    >
       <div
         className={`${colorTag} text-white rounded-xl px-2  inline-block my-1`}
       >
@@ -10,9 +25,9 @@ export default function CardTask({ colorTag, name, projectName, description }) {
         <div className="font-medium my-2">
           <p>{name}</p>
         </div>
-        <div className="font-normal text-slate-300 text-sm my-2">
+        {/* <div className="font-normal text-slate-300 text-sm my-2">
           <p>{description}</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

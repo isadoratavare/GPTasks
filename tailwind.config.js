@@ -72,6 +72,7 @@ module.exports = {
         600: "#E53E3E",
         700: "#C53030",
       },
+      black: "#030712",
     },
   },
   plugins: [],

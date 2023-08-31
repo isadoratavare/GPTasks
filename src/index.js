@@ -4,6 +4,7 @@ import App from "./App";
 import "./main.css";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { UserProvider } from "./hooks/useUser";
+import { TaskProvider } from "./hooks/useTask";
 
 const client = new ApolloClient({
   uri: "http://localhost:3333/graphql",
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <UserProvider>
-        <App />
+        <TaskProvider>
+          <App />
+        </TaskProvider>
       </UserProvider>
     </ApolloProvider>
   </React.StrictMode>
