@@ -115,9 +115,19 @@ const Home = () => {
           <div className="p-5">
             <h3 className="text-2xl font-extrabold">Boards</h3>
             <div className="grid md:grid-cols-2 justify-center">
-              {data?.getAllBoardsFromUser.map((board, i) => (
-                <Board key={i} item={board} />
-              ))}
+              {data?.getAllBoardsFromUser.map((board, i) => {
+                const doneTasks = board.tasks.filter(
+                  (task) => task.label == "done"
+                ).length;
+                const totalTasks = board.tasks.length;
+                return (
+                  <Board
+                    key={i}
+                    item={board}
+                    percentage={(doneTasks / totalTasks) * 100}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

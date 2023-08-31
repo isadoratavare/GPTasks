@@ -25,9 +25,19 @@ export default function Boards() {
       <h3 className={H3Class}>Boards</h3>
 
       <div className="grid md:grid-cols-5 justify-center py-6">
-        {data?.getAllBoardsFromUser?.map((board, i) => (
-          <Board key={i} item={board} />
-        ))}
+        {data?.getAllBoardsFromUser?.map((board, i) => {
+          const doneTasks = board?.tasks?.filter(
+            (task) => task.label == "done"
+          ).length;
+          const totalTasks = board?.tasks?.length;
+          return (
+            <Board
+              key={i}
+              item={board}
+              percentage={(doneTasks / totalTasks) * 100}
+            />
+          );
+        })}
       </div>
     </div>
   );

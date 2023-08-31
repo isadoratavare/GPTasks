@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Board({ item }) {
-  const percentage = 50;
+export default function Board({ item, percentage }) {
   const color = "bg-blue-500";
-
+  console.log(percentage);
   return (
     <div className={`p-4 m-1 ${color} rounded-lg p-3 w-52 h-28`}>
       <Link to={"/board/" + item.id}>
