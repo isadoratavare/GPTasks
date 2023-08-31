@@ -11,6 +11,7 @@ import { useQuery } from "@apollo/client";
 import { GET_BOARDS } from "../../data/queries/board";
 import { useUser } from "../../hooks/useUser";
 import OnGoingTasks from "./OnGoingTasks";
+import FinishedTasks from "./FinishedTasks";
 
 const Home = () => {
   const [onGoingOpen, setOnGoingOpen] = React.useState(true);
@@ -96,15 +97,7 @@ const Home = () => {
           {completedOpen && (
             <div>
               <div className="grid md:grid-cols-2 gap-4">
-                {/* {tasksCompleted.map((task, i) => (
-                  <CardTask
-                    key={i}
-                    colorTag={task.colorTag}
-                    name={task.name}
-                    description={task.description}
-                    projectName={task.projectName}
-                  />
-                ))} */}
+                <FinishedTasks />
               </div>
             </div>
           )}
