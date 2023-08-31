@@ -16,7 +16,7 @@ export default function Board() {
 
   const { emailUser, token } = useUser();
 
-  const { loading, data } = useQuery(GET_BOARDS, {
+  const { loading, data, refetch } = useQuery(GET_BOARDS, {
     context: {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -29,26 +29,9 @@ export default function Board() {
     (board) => board.id === id
   );
 
-  const statusList = [
-    { status: "backlog" },
-    { status: "To Do" },
-    { status: "Doing" },
-    { status: "Done" },
-  ];
-
-  const tasksByStatus = statusList.map((status) => {
-    return {
-      status: status.status,
-      tasks: boardById[0]?.tasks.filter((task) => task.label == status.status),
-    };
-  });
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
   return (
     <div className="p-4 sm:ml-64">
-      <KanbanBoard boardId={id} />
+      <KanbanBoard boardId={id} data={boardById[0]} refetch={refetch} />
     </div>
   );
 }

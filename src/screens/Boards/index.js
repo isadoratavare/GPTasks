@@ -20,7 +20,6 @@ export default function Boards() {
 
   if (loading) return <Loading />;
 
-  console.log(data);
   return (
     <div className="p-4 sm:ml-64">
       <h3 className={H3Class}>Boards</h3>

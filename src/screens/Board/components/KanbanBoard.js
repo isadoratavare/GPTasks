@@ -34,25 +34,16 @@ const defaultCols = [
   },
 ];
 
-function KanbanBoard({ boardId }) {
+function KanbanBoard({ boardId, data, refetch }) {
   const [columns, setColumns] = useState(defaultCols);
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
   const { emailUser, token } = useUser();
 
-  const { loading, data, refetch } = useQuery(GET_BOARDS, {
-    context: {
-      headers: {
-        Authorization: `Bearer ${token || localStorage.getItem("token")}`,
-      },
-    },
-    variables: { owner: emailUser || localStorage.getItem("email") },
-  });
-
   const [updateTaskFunction] = useMutation(UPDATE_TASK);
 
-  const [tasks, setTasks] = useState(data?.getAllBoardsFromUser[0]?.tasks);
+  const [tasks, setTasks] = useState(data?.tasks);
 
   const [activeColumn, setActiveColumn] = useState();
 
@@ -66,7 +57,6 @@ function KanbanBoard({ boardId }) {
     })
   );
 
-  if (loading) return <p>Loading...</p>;
   return (
     <div
       className="
@@ -222,7 +212,7 @@ function KanbanBoard({ boardId }) {
           setTasks(res?.data?.updateTaskFieldsBasedOnBoardId?.tasks);
         })
         .catch((err) => {
-          alert(err);
+          console.log(err);
         })
         .finally(() => {
           refetch();
