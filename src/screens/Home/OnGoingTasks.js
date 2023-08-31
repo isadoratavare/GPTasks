@@ -48,6 +48,7 @@ export default function OnGoingTasks() {
           name={task.task?.title}
           description={task.task?.description}
           projectName={task.board}
+          task={task.task}
         />
       ))}
     </>
