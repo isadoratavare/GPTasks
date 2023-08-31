@@ -18,6 +18,11 @@ const Home = () => {
   const { emailUser } = useUser();
 
   const { data } = useQuery(GET_BOARDS, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    },
     variables: { owner: emailUser || localStorage.getItem("email") },
   });
 

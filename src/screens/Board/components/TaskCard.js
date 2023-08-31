@@ -58,7 +58,7 @@ function TaskCard({ task, updateTask }) {
             task"
     >
       <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
-        {task.description}
+        {task.title}
       </p>
     </div>
   );

@@ -7,7 +7,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [emailUser, setEmailUser] = useState("");
-
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [loginFunction] = useMutation(LOGIN);
   const [registerFunction] = useMutation(REGISTER);
   const handleLogin = (email, password) => {
@@ -20,8 +20,10 @@ export const UserProvider = ({ children }) => {
       },
     })
       .then((token) => {
+        console.log(token.data.login.access_token);
         localStorage.setItem("token", token.data.login.access_token);
         localStorage.setItem("email", email);
+        setToken(token.data.login.access_token);
         setEmailUser(email);
         setIsAuth(true);
       })
@@ -58,6 +60,8 @@ export const UserProvider = ({ children }) => {
 
         handleLogin,
         handleSignIn,
+        token,
+        setToken,
       }}
     >
       {children}

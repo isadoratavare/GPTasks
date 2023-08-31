@@ -23,9 +23,9 @@ function ColumnContainer({ column, tasks, updateTask }) {
     <div
       ref={setNodeRef}
       style={style}
-      className="my-4 grid-cols-4 items-stretch w-full h-screen bg-slate-200"
+      className="my-4 grid-cols-4 items-stretch w-[300px] h-screen bg-slate-200 rounded-2xl"
     >
-      <span className="text-white-100 bg-blue-500 py-1 px-5 rounded-2xl opacity- capitalize">
+      <span className="text-white-100 bg-blue-500 py-1 px-4 rounded-2xl opacity- capitalize">
         {column.title}
       </span>
 

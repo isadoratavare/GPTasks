@@ -39,15 +39,20 @@ function KanbanBoard({ boardId }) {
 
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-  const { emailUser } = useUser();
+  const { emailUser, token } = useUser();
 
   const { loading, data, refetch } = useQuery(GET_BOARDS, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${token || localStorage.getItem("token")}`,
+      },
+    },
     variables: { owner: emailUser || localStorage.getItem("email") },
   });
 
   const [updateTaskFunction] = useMutation(UPDATE_TASK);
 
-  const [tasks, setTasks] = useState(data.getAllBoardsFromUser[0].tasks);
+  const [tasks, setTasks] = useState(data?.getAllBoardsFromUser[0]?.tasks);
 
   const [activeColumn, setActiveColumn] = useState();
 
@@ -61,6 +66,7 @@ function KanbanBoard({ boardId }) {
     })
   );
 
+  if (loading) return <p>Loading...</p>;
   return (
     <div
       className="
@@ -72,7 +78,6 @@ function KanbanBoard({ boardId }) {
         overflow-x-auto
         overflow-y-hidden
         px-[40px]
-        bg-pink-100
     "
     >
       <DndContext
@@ -172,7 +177,7 @@ function KanbanBoard({ boardId }) {
     });
   }
 
-  function onDragOver(event) {
+  async function onDragOver(event) {
     const { active, over } = event;
     if (!over) return;
 
@@ -185,30 +190,25 @@ function KanbanBoard({ boardId }) {
     const isOverATask = over.data.current?.type === "Task";
 
     if (!isActiveATask) return;
-    // // Im dropping a Task over another Task
-    // if (isActiveATask && isOverATask) {
-    //   setTasks((tasks) => {
-    //     const activeIndex = tasks.findIndex((t) => t.id === activeId);
-    //     const overIndex = tasks.findIndex((t) => t.id === overId);
+    if (isActiveATask && isOverATask) {
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        const overIndex = tasks.findIndex((t) => t.id === overId);
 
-    //     if (tasks[activeIndex].label != tasks[overIndex].label) {
-    //       // Fix introduced after video recording
-    //       tasks[activeIndex].label = tasks[overIndex].label;
-    //       return arrayMove(tasks, activeIndex, overIndex - 1);
-    //     }
-
-    //     return arrayMove(tasks, activeIndex, overIndex);
-    //   });
-    // }
+        return arrayMove(tasks, activeIndex, overIndex);
+      });
+    }
 
     const isOverAColumn = over.data.current?.type === "Column";
-    console.log("Encima de uma coluna? ", isOverAColumn);
-    // Im dropping a Task over a column
     if (isActiveATask && isOverAColumn) {
       const newStatus = overId;
-      const activeIndex = tasks.findIndex((t) => t.id === activeId);
 
-      updateTaskFunction({
+      await updateTaskFunction({
+        context: {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
         variables: {
           input: {
             boardId,

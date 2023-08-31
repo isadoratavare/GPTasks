@@ -14,13 +14,16 @@ const cardStyle =
 export default function Board() {
   const { id } = useParams();
 
-  const { emailUser } = useUser();
+  const { emailUser, token } = useUser();
 
   const { loading, data } = useQuery(GET_BOARDS, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
     variables: { owner: emailUser || localStorage.getItem("email") },
   });
-
-  if (loading) return <p>Loading...</p>;
 
   const boardById = data?.getAllBoardsFromUser.filter(
     (board) => board.id === id
@@ -40,6 +43,9 @@ export default function Board() {
     };
   });
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="p-4 sm:ml-64">
       <KanbanBoard boardId={id} />
