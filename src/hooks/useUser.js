@@ -20,7 +20,6 @@ export const UserProvider = ({ children }) => {
       },
     })
       .then((token) => {
-        console.log(token.data.login.access_token);
         localStorage.setItem("token", token.data.login.access_token);
         localStorage.setItem("email", email);
         setToken(token.data.login.access_token);

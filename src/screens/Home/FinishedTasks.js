@@ -16,25 +16,43 @@ export default function FinishedTasks() {
   });
   if (loading) return <p>Loading...</p>;
   if (!data) refetch();
-  if (error) {
-    console.log(error.message);
+  if (error && data === undefined) {
+    return <p>console.error</p>;
   }
-  const arraysTasks = data?.getAllBoardsFromUser?.map((board) => board.tasks);
+  if (error?.message == "Unauthorized") {
+    localStorage.removeItem("token");
 
-  const flattenedArray = [].concat(...arraysTasks);
-  const done = flattenedArray?.filter((task) => task.label === "done");
+    window.location.reload();
+  }
+  const arraysTasks =
+    data?.getAllBoardsFromUser?.map((board) => {
+      return {
+        board: board.title,
+        tasks: board.tasks.filter((task) => task.label === "done"),
+      };
+    }) || [];
+  const newArray = [];
+
+  arraysTasks.forEach((item) => {
+    const boardName = item.board;
+    item.tasks.forEach((taskItem) => {
+      newArray.push({ board: boardName, task: taskItem });
+    });
+  });
 
   return (
     <>
-      {done.map((task, i) => (
-        <CardTask
-          key={i}
-          colorTag={task.colorTag}
-          name={task.title}
-          description={task.description}
-          projectName={task.projectName}
-        />
-      ))}
+      {newArray.map((task, i) => {
+        return (
+          <CardTask
+            key={i}
+            colorTag={task.colorTag}
+            name={task.task?.title}
+            description={task.task?.description}
+            projectName={task.board}
+          />
+        );
+      })}
     </>
   );
 }

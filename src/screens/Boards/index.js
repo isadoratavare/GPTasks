@@ -25,7 +25,7 @@ export default function Boards() {
       <h3 className={H3Class}>Boards</h3>
 
       <div className="grid md:grid-cols-5 justify-center py-6">
-        {data?.getAllBoardsFromUser.map((board, i) => (
+        {data?.getAllBoardsFromUser?.map((board, i) => (
           <Board key={i} item={board} />
         ))}
       </div>

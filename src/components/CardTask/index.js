@@ -17,7 +17,7 @@ export default function CardTask({
       }}
     >
       <div
-        className={`${colorTag} text-white rounded-xl px-2  inline-block my-1`}
+        className={`bg-blue-500 text-white rounded-xl px-2  inline-block my-1`}
       >
         <p className="text-white-100 font-semibold text-sm">{projectName}</p>
       </div>

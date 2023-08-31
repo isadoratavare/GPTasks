@@ -17,25 +17,37 @@ export default function OnGoingTasks() {
   if (loading) return <p>Loading...</p>;
   if (!data) refetch();
   if (error) {
-    console.log("Unauthorized");
+    if (error.message == "Unauthorized") {
+      localStorage.removeItem("token");
+      window.location.reload();
+    }
+    return <p>{error.message}</p>;
   }
-  const arraysTasks = data.getAllBoardsFromUser.map((board) => board.tasks);
+  const arraysTasks =
+    data?.getAllBoardsFromUser?.map((board) => {
+      return {
+        board: board.title,
+        tasks: board.tasks.filter((task) => task.label === "in-progress"),
+      };
+    }) || [];
+  const newArray = [];
 
-  const flattenedArray = [].concat(...arraysTasks);
-  const inProgressTasks = flattenedArray.filter(
-    (task) => task.label === "in-progress"
-  );
+  arraysTasks.forEach((item) => {
+    const boardName = item.board;
+    item.tasks.forEach((taskItem) => {
+      newArray.push({ board: boardName, task: taskItem });
+    });
+  });
 
   return (
     <>
-      {inProgressTasks.map((task, i) => (
+      {newArray.map((task, i) => (
         <CardTask
           key={i}
           colorTag={task.colorTag}
-          name={task.title}
-          description={task.description}
-          projectName={task.projectName}
-          task={task}
+          name={task.task?.title}
+          description={task.task?.description}
+          projectName={task.board}
         />
       ))}
     </>

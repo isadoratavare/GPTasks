@@ -21,7 +21,7 @@ export default function Board() {
     variables: { owner: emailUser || localStorage.getItem("email") },
   });
 
-  const boardById = data?.getAllBoardsFromUser.filter(
+  const boardById = data?.getAllBoardsFromUser?.filter(
     (board) => board.id === id
   );
 
