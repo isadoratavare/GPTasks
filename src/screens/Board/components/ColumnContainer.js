@@ -5,7 +5,7 @@ import TaskCard from "./TaskCard";
 
 function ColumnContainer({ column, tasks, updateTask }) {
   const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id);
+    return tasks?.map((task) => task?.id);
   }, [tasks]);
   const { setNodeRef, transform, transition } = useSortable({
     id: column.id,
@@ -31,7 +31,7 @@ function ColumnContainer({ column, tasks, updateTask }) {
 
       <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
         <SortableContext items={tasksIds}>
-          {tasks.map((task) => (
+          {tasks?.map((task) => (
             <TaskCard key={task.id} task={task} updateTask={updateTask} />
           ))}
         </SortableContext>

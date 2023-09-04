@@ -78,7 +78,8 @@ export default function CreateBoard() {
       ],
     })
       .then((res) => {
-        navigate(`/board/${res?.data?.createBoard?.id}`);
+        console.log("res no then: ", res?.data?.createBoard?.id);
+        navigate(`/boards`);
         alert("Project created successfully");
       })
       .catch((err) => {

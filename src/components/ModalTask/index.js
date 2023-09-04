@@ -4,7 +4,7 @@ export default function ModalTask() {
   const { isModalTaskOpen, setIsModalTaskOpen, task } = useTask();
 
   if (!isModalTaskOpen) return <></>;
-
+  const date = new Date(parseInt(task.dueDate));
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -15,7 +15,17 @@ export default function ModalTask() {
               <p className="my-4 text-slate-500 text-lg leading-relaxed">
                 {task.description}
               </p>
-              <span>Story Points: {task.storyPoints}</span>
+              <div>
+                <span>Story Points: {task.storyPoints}</span>
+                <div className="my-2">
+                  Finish Date:{" "}
+                  {date.getDate() +
+                    "/" +
+                    (date.getMonth() + 1) +
+                    "/" +
+                    date.getFullYear()}
+                </div>
+              </div>
             </div>
             <div className="flex items-center justify-end p-6 rounded-b">
               <button

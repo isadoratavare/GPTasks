@@ -13,6 +13,7 @@ export const GET_BOARDS = gql`
         storyPoints
         acceptanceCriteria
         label
+        dueDate
       }
     }
   }

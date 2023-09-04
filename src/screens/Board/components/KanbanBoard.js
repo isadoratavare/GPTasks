@@ -37,9 +37,7 @@ const defaultCols = [
 function KanbanBoard({ boardId, data, refetch }) {
   const [columns, setColumns] = useState(defaultCols);
 
-  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
-  const { emailUser, token } = useUser();
+  const columnsId = useMemo(() => columns?.map((col) => col?.id), [columns]);
 
   const [updateTaskFunction] = useMutation(UPDATE_TASK);
 
@@ -79,12 +77,12 @@ function KanbanBoard({ boardId, data, refetch }) {
         <div className="m-auto flex gap-4">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
-              {columns.map((col) => (
+              {columns?.map((col) => (
                 <ColumnContainer
                   key={col.id}
                   column={col}
                   updateTask={updateTask}
-                  tasks={tasks.filter((task) => {
+                  tasks={tasks?.filter((task) => {
                     return task.label == col.id;
                   })}
                 />
@@ -99,7 +97,7 @@ function KanbanBoard({ boardId, data, refetch }) {
               <ColumnContainer
                 column={activeColumn}
                 updateTask={updateTask}
-                tasks={tasks.filter((task) => task.label === activeColumn.id)}
+                tasks={tasks?.filter((task) => task.label === activeColumn.id)}
               />
             )}
             {activeTask && (
@@ -117,12 +115,12 @@ function KanbanBoard({ boardId, data, refetch }) {
   );
 
   function deleteTask(id) {
-    const newTasks = tasks.filter((task) => task.id !== id);
+    const newTasks = tasks?.filter((task) => task.id !== id);
     setTasks(newTasks);
   }
 
   function updateTask(id, content) {
-    const newTasks = tasks.map((task) => {
+    const newTasks = tasks?.map((task) => {
       if (task.id !== id) return task;
       return { ...task, content };
     });
